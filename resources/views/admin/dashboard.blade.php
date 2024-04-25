@@ -1,1 +1,1 @@
-@include('layouts.app_bar')
+@include('layouts.admin_sidebar')
