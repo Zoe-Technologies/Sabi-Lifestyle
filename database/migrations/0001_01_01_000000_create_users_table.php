@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('address');
             $table->string('wishlist');
+            $table->string('is_Admin');
             $table->rememberToken();
             $table->timestamps();
         });
