@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +49,66 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+@extends('layouts.homepage')
+
+@section('content')
+    <div class="container">
+        <h1 class="text-center">Register Page</h1>
+        <form action="{{ route('register') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="InputName" class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" id="InputName">
+            </div>
+            @if ($errors->has('name'))
+            <span class="error">
+                <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('name') }}</span>
+            </span>
+            @endif
+
+            <div class="mb-3">
+                <label for="InputSurname" class="form-label">Surname</label>
+                <input type="text" name="surname" class="form-control" id="InputSurname">
+            </div>
+            @if ($errors->has('surname'))
+            <span class="error">
+                <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('surname') }}</span>
+            </span>
+            @endif
+
+            <div class="mb-3">
+                <label for="InputEmail" class="form-label">Email Address</label>
+                <input type="email" name="email" class="form-control" id="InputEmail">
+            </div>
+            @if ($errors->has('email'))
+            <span class="error">
+                <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('email') }}</span>
+            </span>
+            @endif
+            
+            <div class="mb-3">
+                <label for="InputPassword1" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" id="InputPassword1">
+            </div>
+            @if ($errors->has('password'))
+            <span class="error">
+                <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('password') }}</span>
+            </span>
+            @endif
+
+            <div class="mb-3">
+                <label for="InputConfirmPassword1" class="form-label">Confirm Password</label>
+                <input type="password" name="confirmpassword" class="form-control" id="InputConfirmPassword1">
+            </div>
+            @if ($errors->has('confirmpassword'))
+            <span class="error">
+                <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('confirmpassword') }}</span>
+            </span>
+            @endif
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+        @endsection

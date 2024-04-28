@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -44,4 +44,34 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+@extends('layouts.homepage')
+
+@section('content')
+    <h1 class="text-center">Login Page</h1>
+    <div class="container">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            @if ($errors->has('email'))
+                <span class="error">
+                    <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('email') }}</span>
+                </span>
+            @endif
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            @if ($errors->has('password'))
+                <span class="error">
+                    <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('password') }}</span>
+                </span>
+            @endif
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+@endsection
