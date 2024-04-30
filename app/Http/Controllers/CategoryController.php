@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories', 'user'));
     }
 
     /**
@@ -21,7 +24,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $user = auth()->user();
+        return view('admin.categories.create', compact('user'));
     }
 
     /**
@@ -29,7 +33,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = $request->validate([
+            'name' => ['required', 'unique:categories'],
+            'image' => ['required', 'mimes:jpg,png,jpeg,mp4']
+        ]);
+
+        $img_dir = $request->file('image')->store('images/category', 'public');
+
+        $category = Category::create([
+            'name' => $request->input('name'),
+            'image' => $img_dir
+        ]);
+
+        return redirect(route('dashboard.admin.category.index', absolute: false));
     }
 
     /**
@@ -43,24 +59,39 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Category $category, $id)
     {
-        //
+        $user = auth()->user();
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit', compact('user', 'category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $valid = $request->validate([
+            'name' => ['required', Rule::unique('categories')->ignore($category)],
+            'image' => 'mimes:jpg,png,jpeg,mp4'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $category->update(array_merge($valid, ['image' => $request->file('image')->store('images/category', 'public')]));
+        } else {
+            $category->update(array_merge($valid));
+        }
+        return redirect()->intended(route('dashboard.admin.category.index', absolute: false));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return redirect()->back()->with('message', 'Message deleted Successfully');
     }
 }
