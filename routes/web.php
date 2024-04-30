@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +30,16 @@ Route::middleware('auth', 'verified')->group(function () {
                 Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('edit');
                 Route::post('edit/{id}', [CategoryController::class, 'update'])->name('update');
                 Route::get('{id}', [CategoryController::class, 'destroy'])->name('destroy');
+            });
+
+            Route::name('product.')->prefix('product')->group(function () {
+                Route::get('index', [ProductController::class, 'index'])->name('index');
+                Route::get('create', [ProductController::class, 'create'])->name('create');
+                Route::get('show', [ProductController::class, 'show'])->name('show');
+                Route::post('store', [ProductController::class, 'store'])->name('store');
+                Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
+                Route::post('edit/{id}', [ProductController::class, 'update'])->name('update');
+                Route::get('{id}', [ProductController::class, 'destroy'])->name('destroy');
             });
         });
 

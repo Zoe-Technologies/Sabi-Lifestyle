@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use PhpParser\Builder\Property;
 
 class ProductController extends Controller
 {
@@ -13,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        $product = Product::all();
+        return view('admin.products.index', compact('product', 'user'));
     }
 
     /**
@@ -21,7 +25,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $user = auth()->user();
+        $categories = Category::all();
+        return view('admin.products.create', compact('user', 'categories'));
     }
 
     /**
@@ -29,7 +35,42 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product= $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'image[]' => 'mimes:jpg,png,jpeg,svg',
+            'price' => 'required',
+            'discount' => 'required',
+            'quantity' => 'required',
+            'size' => 'required',
+        ]);
+
+        $fileNames = [];
+        foreach ($request->file('image') as $image) {
+            $imageName = $image->hashName();
+            $image->store('images/products', 'public');
+            $fileNames[] = $imageName;
+        }
+
+        $images = $fileNames;
+
+        $sizeArray = explode(',', $request->input('size'));
+
+        // dd($sizeArray);
+
+        $product= Product::create([
+            'category_id' => $request->input('category_id'),
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'images' => $images,
+            'price' => $request->input('price'),
+            'discount' => $request->input('discount'),
+            'quantity' => $request->input('quantity'),
+            'size' => $sizeArray,
+        ]);
+
+        return redirect()->intended(route('dashboard.admin.product.index',  absolute: false));
     }
 
     /**
@@ -43,9 +84,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(Product $product, $id)
     {
-        //
+        $user = auth()->user();
+        $product = Product::findOrFail($id);
+        return view('admin.product.edit', compact('user', 'product'));
     }
 
     /**
@@ -59,8 +102,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product, $id)
     {
-        //
+        $category = Product::findOrFail($id);
+        $category->delete();
+        return redirect()->back()->with('message', 'Message deleted Successfully');
     }
 }
