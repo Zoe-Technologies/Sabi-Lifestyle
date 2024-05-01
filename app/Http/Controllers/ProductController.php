@@ -16,8 +16,9 @@ class ProductController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $product = Product::all();
-        return view('admin.products.index', compact('product', 'user'));
+        $products = Product::all();
+        $categories = Category::all();
+        return view('admin.products.index', compact('products', 'user', 'categories'));
     }
 
     /**
@@ -35,7 +36,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product= $request->validate([
+        $product = $request->validate([
             'category_id' => 'required',
             'name' => 'required',
             'description' => 'required',
@@ -57,9 +58,7 @@ class ProductController extends Controller
 
         $sizeArray = explode(',', $request->input('size'));
 
-        // dd($sizeArray);
-
-        $product= Product::create([
+        $product = Product::create([
             'category_id' => $request->input('category_id'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
@@ -76,9 +75,12 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Product $product, $id)
     {
-        //
+        $user = auth()->user();
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.products.show', compact('user', 'product', 'categories'));
     }
 
     /**
@@ -88,15 +90,56 @@ class ProductController extends Controller
     {
         $user = auth()->user();
         $product = Product::findOrFail($id);
-        return view('admin.product.edit', compact('user', 'product'));
+        $categories = Category::all();
+        return view('admin.products.edit', compact('user', 'product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $valid = $request->validate([
+            'category_id' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'image[]' => 'mimes:jpg,png,jpeg,svg',
+            'price' => 'required',
+            'discount' => 'required',
+            'quantity' => 'required',
+            'size' => 'required',
+        ]);
+
+        $fileNames = [];
+        if ($request->hasFile('image[]')) {
+            foreach ($request->file('image') as $image) {
+                $imageName = $image->hashName();
+                $image->store('images/products', 'public');
+                $fileNames[] = $imageName;
+            }
+    
+            $images = $fileNames;
+        } else {
+            $images = $product->images;
+        }
+
+        $sizeArray = explode(',', $request->input('size'));
+
+        $update = [
+            'category_id' => $request->input('category_id'),
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'images' => $images,
+            'price' => $request->input('price'),
+            'discount' => $request->input('discount'),
+            'quantity' => $request->input('quantity'),
+            'size' => $sizeArray,
+        ];
+
+        $product->update($update);
+
+        return redirect()->intended(route('dashboard.admin.product.index',  absolute: false));
     }
 
     /**

@@ -35,7 +35,7 @@ Route::middleware('auth', 'verified')->group(function () {
             Route::name('product.')->prefix('product')->group(function () {
                 Route::get('index', [ProductController::class, 'index'])->name('index');
                 Route::get('create', [ProductController::class, 'create'])->name('create');
-                Route::get('show', [ProductController::class, 'show'])->name('show');
+                Route::get('show/{id}', [ProductController::class, 'show'])->name('show');
                 Route::post('store', [ProductController::class, 'store'])->name('store');
                 Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
                 Route::post('edit/{id}', [ProductController::class, 'update'])->name('update');
