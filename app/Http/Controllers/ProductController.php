@@ -147,8 +147,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product, $id)
     {
-        $category = Product::findOrFail($id);
-        $category->delete();
+        $product = Product::findOrFail($id);
+        $product->delete();
         return redirect()->back()->with('message', 'Message deleted Successfully');
     }
 }
