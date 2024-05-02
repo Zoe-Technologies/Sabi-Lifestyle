@@ -14,6 +14,6 @@ class DashboardController extends Controller
 
     public function userDashboard() {
         $user = auth()->user();
-        return view('admin.dashboard', compact('user'));
+        return view('users.dashboard', compact('user'));
     }
 }

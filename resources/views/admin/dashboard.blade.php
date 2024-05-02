@@ -9,7 +9,7 @@
             <li>Add Products</li>  <a href="{{ route('dashboard.admin.product.index') }}">Product</a>  <a href="{{ route('dashboard.admin.product.create') }}">Add Product</a>
             <li>View Orders</li>
             <li>View Product Ordered</li>
-            <li>Receive Messages</li> <a href="{{ route() }}">Inbox</a>
+            <li>Receive Messages</li> <a href="{{ route('dashboard.admin.inbox.index') }}">Inbox</a>
         </ol><br><br>
 
     </div>
