@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WishlistController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,7 +25,7 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::middleware([AdminMiddleware::class])->group(function () {
             // Admin routes here
             Route::name('admin.')->prefix('admin')->group(function () {
-                Route::get('', [DashboardController::class, 'adminDashboard'])->name('dashboard.admin');
+                Route::get('', [AdminController::class, 'dashboard'])->name('dashboard.admin');
                 Route::name('category.')->prefix('category')->group(function () {
                     Route::get('index', [CategoryController::class, 'index'])->name('index');
                     Route::get('create', [CategoryController::class, 'create'])->name('create');
@@ -51,7 +53,7 @@ Route::middleware('auth', 'verified')->group(function () {
         });
 
         Route::name('user.')->prefix('user')->group(function () {
-            Route::get('', [DashboardController::class, 'userDashboard'])->name('dashboard.user');
+            Route::get('', [UserController::class, 'dashboard'])->name('dashboard.user');
             Route::name('inbox.')->prefix('inbox')->group(function () {
                 Route::get('index', [InboxController::class, 'indexUser'])->name('index');
                 Route::get('show/{id}', [InboxController::class, 'showUser'])->name('show');
@@ -61,6 +63,19 @@ Route::middleware('auth', 'verified')->group(function () {
                 Route::post('edit/{id}', [InboxController::class, 'update'])->name('update');
                 Route::get('{id}', [InboxController::class, 'destroy'])->name('destroy');
             });
+
+            Route::name('product.')->prefix('product')->group(function () {
+                Route::get('index', [UserController::class, 'products'])->name('index');
+                Route::get('show/{id}', [UserController::class, 'showProducts'])->name('show');
+            });
+
+            Route::name('wishlist.')->prefix('wishlist')->group(function () {
+                Route::get('index', [WishlistController::class, 'index'])->name('index');
+                Route::post('store', [WishlistController::class, 'store'])->name('store');
+                Route::get('show/{id}', [WishlistController::class, 'showProducts'])->name('show');
+                Route::get('{id}', [WishlistController::class, 'destroy'])->name('destroy');
+            });
+
         });
     });
 });
