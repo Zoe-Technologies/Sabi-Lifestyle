@@ -25,7 +25,7 @@ class Product extends Model
     }
 
     public function wishlist() {
-        return $this->belongsTo(Wishlist::class);
+        return $this->hasMany(Wishlist::class);
     }
 
     public function orderitem() {
