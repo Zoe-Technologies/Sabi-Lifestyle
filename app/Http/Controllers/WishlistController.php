@@ -37,7 +37,7 @@ class WishlistController extends Controller
     {
         $wishlist = $request->validate([
             'user_id' => ['required'],
-            'product_id' => ['required']
+            'product_id' => ['required', 'unique:wishlists']
         ]);
 
         $wishlist = Wishlist::create([

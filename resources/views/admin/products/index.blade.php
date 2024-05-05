@@ -3,8 +3,8 @@
 @section('content')
     <div class="container mt-5">
         <div>
-            <a href="{{ route('dashboard.admin.category.create') }}"><button class="btn btn-outline-info btn-sm"><i
-                        class="bi bi-plus"></i> Add Category</button></a>
+            <a href="{{ route('dashboard.admin.product.create') }}"><button class="btn btn-outline-info btn-sm"><i
+                        class="bi bi-plus"></i> Add Product</button></a>
         </div>
         <h1 class="text-center"><strong>All Products</strong></h1>
         <table id="myTable" class="table table-striped table-bordered">

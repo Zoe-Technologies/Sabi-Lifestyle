@@ -37,12 +37,20 @@
                 <button class="btn btn-sm btn-outline-success m-1"><i class="bi bi-pencil-square"></i>Add to
                     Wishlist</button>
             </form>
+            <form action="{{ route('dashboard.user.cart.store') }}" method="POST">
+                @csrf
+                @foreach ($carts as $cart)
+                    <input type="hidden" value="{{ $cart->id }}" name="cart_id">
+                @endforeach
+                <input type="hidden" value="{{ $product->id }}" name="product_id">
+                <input type="hidden" value="1" name="quantity">
+                <input type="hidden" value="0" name="price_at_addition">
+                <button class="btn btn-sm btn-outline-primary m-1"><i class="bi bi-pencil-square"></i>Add to
+                    Cart</button>
+            </form>
             {{-- <a href="{{ route('dashboard.user.product.show', $product->id) }}"><button
-                    class="btn btn-sm btn-outline-success m-1"><i class="bi bi-pencil-square"></i>Add to
-                    Wishlist</button></a> --}}
-            <a href="{{ route('dashboard.user.product.show', $product->id) }}"><button
                     class="btn btn-sm btn-outline-primary m-1"><i class="bi bi-pencil-square"></i>Add to
-                    Cart</button></a>
+                    Cart</button></a> --}}
             <hr>
         @endforeach
     </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\CartItem;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -7,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WishlistController;
 
@@ -64,9 +66,19 @@ Route::middleware('auth', 'verified')->group(function () {
                 Route::get('{id}', [InboxController::class, 'destroy'])->name('destroy');
             });
 
+
+
             Route::name('product.')->prefix('product')->group(function () {
                 Route::get('index', [UserController::class, 'products'])->name('index');
                 Route::get('show/{id}', [UserController::class, 'showProducts'])->name('show');
+            });
+
+            
+            Route::name('cart.')->prefix('cart')->group(function () {
+                Route::get('index', [CartItemController::class, 'index'])->name('index');
+                Route::post('store', [CartItemController::class, 'store'])->name('store');
+                Route::get('show/{id}', [CartItemController::class, 'showProducts'])->name('show');
+                Route::get('{id}', [CartItemController::class, 'destroy'])->name('destroy');
             });
 
             Route::name('wishlist.')->prefix('wishlist')->group(function () {
