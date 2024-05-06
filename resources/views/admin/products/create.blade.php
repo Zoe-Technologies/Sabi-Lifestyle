@@ -61,19 +61,129 @@
                 </span>
             @endif
 
-            <div class="mb-3">
-                <label for="price" class="form-label">Price:</label>
-                <input type="number" name="price" class="form-control" id="price" value={{ old('price') }}>
-            </div>
-            @if ($errors->has('price'))
-                <span class="error">
-                    <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('price') }}</span>
-                </span>
-            @endif
+            <fieldset class="border border-black p-3 mb-3">
+                <legend>Prices</legend>
+                <div class="row">
+                    <div class="mb-3 col-md-2">
+                        <label for="price_small" class="form-label">Price (Small):</label>
+                        <input type="number" name="price_small" class="form-control" min="0" id="price_small" value={{ old('price_small') }}>
+                    </div>
+                    @if ($errors->has('price_small'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('price_small') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="price_medium" class="form-label">Price (Medium):</label>
+                        <input type="number" name="price_medium" class="form-control" min="0" id="price_medium" value={{ old('price_medium') }}>
+                    </div>
+                    @if ($errors->has('price_medium'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('price_medium') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="price_large" class="form-label">Price (Large):</label>
+                        <input type="number" name="price_large" class="form-control" min="0" id="price_large" value={{ old('price_large') }}>
+                    </div>
+                    @if ($errors->has('price_large'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('price_large') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="price_xlarge" class="form-label">Price (xLarge):</label>
+                        <input type="number" name="price_xlarge" class="form-control" min="0" id="price_xlarge" value={{ old('price_xlarge') }}>
+                    </div>
+                    @if ($errors->has('price_xlarge'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('price_xlarge') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="price_xxlarge" class="form-label">Price (xxLarge):</label>
+                        <input type="number" name="price_xxlarge" class="form-control" min="0" id="price_xxlarge" value={{ old('price_xxlarge') }}>
+                    </div>
+                    @if ($errors->has('price_xxlarge'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('price_xxlarge') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="price_xxxlarge" class="form-label">Price (xxxLarge):</label>
+                        <input type="number" name="price_xxxlarge" class="form-control" min="0" id="price_xxxlarge" value={{ old('price_xxxlarge') }}>
+                    </div>
+                    @if ($errors->has('price_xxxlarge'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('price_xxxlarge') }}</span>
+                        </span>
+                    @endif
+                </div>
+            </fieldset>
+
+            <fieldset class="border border-black p-3 mb-3">
+                <legend>Quantity Available</legend>
+                <div class="row">
+                    <div class="mb-3 col-md-2">
+                        <label for="quantity_small" class="form-label">Quantity (Small):</label>
+                        <input type="number" name="quantity_small" class="form-control" min="0" id="quantity_small" value={{ old('quantity_small') }}>
+                    </div>
+                    @if ($errors->has('quantity_small'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('quantity_small') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="quantity_medium" class="form-label">Quantity (Medium):</label>
+                        <input type="number" name="quantity_medium" class="form-control" min="0" id="quantity_medium" value={{ old('quantity_medium') }}>
+                    </div>
+                    @if ($errors->has('quantity_medium'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('quantity_medium') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="quantity_large" class="form-label">Quantity (Large):</label>
+                        <input type="number" name="quantity_large" class="form-control" min="0" id="quantity_large" value={{ old('quantity_large') }}>
+                    </div>
+                    @if ($errors->has('quantity_large'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('quantity_large') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="quantity_xlarge" class="form-label">Quantity (xLarge):</label>
+                        <input type="number" name="quantity_xlarge" class="form-control" min="0" id="quantity_xlarge" value={{ old('quantity_xlarge') }}>
+                    </div>
+                    @if ($errors->has('quantity_xlarge'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('quantity_xlarge') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="quantity_xxlarge" class="form-label">Quantity (xxLarge):</label>
+                        <input type="number" name="quantity_xxlarge" class="form-control" min="0" id="quantity_xxlarge" value={{ old('quantity_xxlarge') }}>
+                    </div>
+                    @if ($errors->has('quantity_xxlarge'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('quantity_xxlarge') }}</span>
+                        </span>
+                    @endif
+                    <div class="mb-3 col-md-2">
+                        <label for="quantity_xxxlarge" class="form-label">Quantity (xxxLarge):</label>
+                        <input type="number" name="quantity_xxxlarge" class="form-control" min="0" id="quantity_xxxlarge" value={{ old('quantity_xxxlarge') }}>
+                    </div>
+                    @if ($errors->has('quantity_xxxlarge'))
+                        <span class="error">
+                            <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('quantity_xxxlarge') }}</span>
+                        </span>
+                    @endif
+                </div>
+            </fieldset>
 
             <div class="mb-3">
                 <label for="discount" class="form-label">Discount:</label>
-                <input type="number" name="discount" class="form-control" id="discount" value={{ old('discount') }}>
+                <input type="number" name="discount" class="form-control" id="discount" min="0" value={{ old('discount') }}>
             </div>
             @if ($errors->has('discount'))
                 <span class="error">
@@ -81,16 +191,6 @@
                 </span>
             @endif
 
-            <div class="mb-3">
-                <label for="quantity" class="form-label">Quantity:</label>
-                <input type="number" min="0" name="quantity" class="form-control" id="quantity"
-                    value={{ old('quantity') }}>
-            </div>
-            @if ($errors->has('quantity'))
-                <span class="error">
-                    <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('quantity') }}</span>
-                </span>
-            @endif
 
 
             <button class="btn btn-sm btn-outline-info mt-3" type="submit">Submit</button>

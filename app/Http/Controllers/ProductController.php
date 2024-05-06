@@ -42,10 +42,19 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'image[]' => 'mimes:jpg,png,jpeg,svg',
-            'price' => 'required',
+            'price_small' => 'required',
+            'price_medium' => 'required',
+            'price_large' => 'required',
+            'price_xlarge' => 'required',
+            'price_xxlarge' => 'required',
+            'price_xxxlarge' => 'required',
+            'quantity_small' => 'required',
+            'quantity_medium' => 'required',
+            'quantity_large' => 'required',
+            'quantity_xlarge' => 'required',
+            'quantity_xxlarge' => 'required',
+            'quantity_xxxlarge' => 'required',
             'discount' => 'required',
-            'quantity' => 'required',
-            'size' => 'required',
         ]);
 
         $fileNames = [];
@@ -57,17 +66,24 @@ class ProductController extends Controller
 
         $images = $fileNames;
 
-        $sizeArray = explode(',', $request->input('size'));
-
         $product = Product::create([
             'category_id' => $request->input('category_id'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'images' => $images,
-            'price' => $request->input('price'),
+            'price_small' => $request->input('price_small'),
+            'price_medium' => $request->input('price_medium'),
+            'price_large' => $request->input('price_large'),
+            'price_xlarge' => $request->input('price_xlarge'),
+            'price_xxlarge' => $request->input('price_xxlarge'),
+            'price_xxxlarge' => $request->input('price_xxxlarge'),
+            'quantity_small' => $request->input('quantity_small'),
+            'quantity_medium' => $request->input('quantity_medium'),
+            'quantity_large' => $request->input('quantity_large'),
+            'quantity_xlarge' => $request->input('quantity_xlarge'),
+            'quantity_xxlarge' => $request->input('quantity_xxlarge'),
+            'quantity_xxxlarge' => $request->input('quantity_xxxlarge'),
             'discount' => $request->input('discount'),
-            'quantity' => $request->input('quantity'),
-            'size' => $sizeArray,
         ]);
 
         return redirect()->intended(route('dashboard.admin.product.index',  absolute: false));

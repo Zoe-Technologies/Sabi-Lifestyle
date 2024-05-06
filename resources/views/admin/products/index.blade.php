@@ -15,9 +15,9 @@
                     <th scope="col">Description</th>
                     <th scope="col">Images</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Discount</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Size</th>
+                    <th scope="col">Available Size</th>
+                    <th scope="col">Discount</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -30,13 +30,42 @@
                         <td> {{ $product->description }} </td>
                         <td> <img src="{{ asset('storage/images/products/' . $product->images[0]) }}" width="30%"
                                 class="img-fluid" alt=""> </td>
-                        <td> {{ $product->price }} </td>
+                        <td> 
+                            <li>Small: {{ $product->price_small }}</li>
+                            <li>Medium: {{ $product->price_medium }}</li>
+                            <li>Large: {{ $product->price_large }}</li>
+                            <li>xLarge: {{ $product->price_xlarge }}</li>
+                            <li>xxLarge: {{ $product->price_xxlarge }}</li>
+                            <li>xxxLarge: {{ $product->price_xxxlarge }}</li>
+                        </td>
+                        <td> 
+                            <li>Small: {{ $product->quantity_small }} </li>
+                            <li>Medium: {{ $product->quantity_medium }} </li>
+                            <li>Large: {{ $product->quantity_large }} </li>
+                            <li>xLarge: {{ $product->quantity_xlarge }} </li>
+                            <li>xxLarge: {{ $product->quantity_xxlarge }} </li>
+                            <li>xxxLarge: {{ $product->quantity_xxxlarge }} </li>
+                        </td>
                         <td> {{ $product->discount }} </td>
-                        <td> {{ $product->quantity }} </td>
                         <td>
-                            @foreach ($product->size as $size)
-                                {{ $size }},
-                            @endforeach
+                            @if ($product->quantity_small > 0)
+                                <li>Small</li>
+                            @endif
+                            @if ($product->quantity_medium > 0)
+                                <li>Medium</li>
+                            @endif
+                            @if ($product->quantity_large > 0)
+                                <li>Large</li>
+                            @endif
+                            @if ($product->quantity_xlarge > 0)
+                                <li>xLarge</li>
+                            @endif
+                            @if ($product->quantity_xxlarge > 0)
+                                <li>xxLarge</li>
+                            @endif
+                            @if ($product->quantity_xxxlarge > 0)
+                                <li>xxxLarge</li>
+                            @endif
                         </td>
                         {{-- <td> {{ $product->size[0] }} </td> --}}
                         <td>
