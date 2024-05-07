@@ -13,7 +13,7 @@
         <li>Small: {{ $product->price_small }}</li>
         <li>Medium: {{ $product->price_medium }}</li>
         <li>Large: {{ $product->price_large }}</li>
-        <li>xLarge: {{ $product->price_xlarge }}</li>
+        <li>xLarge: {{ $product->price_xlarge }}</li> 
         <li>xxLarge: {{ $product->price_xxlarge }}</li>
         <li>xxxLarge: {{ $product->price_xxxlarge }}</li>
         <p>Quantity</p>
