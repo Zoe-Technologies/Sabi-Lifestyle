@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('order_number');
-            $table->string('date');
             $table->string('status');
             $table->string('total_amount');
             $table->string('shipping_address');

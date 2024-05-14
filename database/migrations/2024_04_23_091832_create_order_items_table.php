@@ -15,8 +15,18 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id');
             $table->foreignId('product_id');
-            $table->string('size');
-            $table->string('quantity');
+            $table->string('price_small')->nullable();
+            $table->string('price_medium')->nullable();
+            $table->string('price_large')->nullable();
+            $table->string('price_xlarge')->nullable();
+            $table->string('price_xxlarge')->nullable();
+            $table->string('price_xxxlarge')->nullable();
+            $table->string('quantity_small')->nullable();
+            $table->string('quantity_medium')->nullable();
+            $table->string('quantity_large')->nullable();
+            $table->string('quantity_xlarge')->nullable();
+            $table->string('quantity_xxlarge')->nullable();
+            $table->string('quantity_xxxlarge')->nullable();
             $table->timestamps();
         });
     }

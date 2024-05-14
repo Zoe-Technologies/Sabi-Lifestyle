@@ -23,7 +23,7 @@ class CartItemController extends Controller
         foreach ($carts as $cart)
             $id = $cart->id;
         $cartitems = CartItem::all()->where('cart_id', $id);
-        // dd($cartitems);
+        // dd(count($cartitems));
         return view('users.cartItems.index', compact('user', 'products', 'categories', 'cartitems', 'carts', 'id'));
     }
 
@@ -40,14 +40,14 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
-        $wishlist = $request->validate([
+        $cartitem = $request->validate([
             'cart_id' => ['required'],
             'product_id' => ['required', 'unique:cart_items'],
             'quantity' => ['required'],
             'price_at_addition' => ['required']
         ]);
 
-        $wishlist = CartItem::create([
+        $cartitem = CartItem::create([
             'cart_id' => $request->input('cart_id'),
             'product_id' => $request->input('product_id'),
             'quantity' => $request->input('quantity'),

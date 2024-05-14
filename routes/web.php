@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartItemController;
@@ -86,6 +87,13 @@ Route::middleware('auth', 'verified')->group(function () {
                 Route::post('store', [WishlistController::class, 'store'])->name('store');
                 Route::get('show/{id}', [WishlistController::class, 'showProducts'])->name('show');
                 Route::get('{id}', [WishlistController::class, 'destroy'])->name('destroy');
+            });
+
+            Route::name('order.')->prefix('order')->group(function () {
+                Route::get('index', [OrderController::class, 'index'])->name('index');
+                Route::post('store', [OrderController::class, 'store'])->name('store');
+                Route::get('show/{id}', [OrderController::class, 'show'])->name('show');
+                Route::get('{id}', [OrderController::class, 'destroy'])->name('destroy');
             });
 
         });

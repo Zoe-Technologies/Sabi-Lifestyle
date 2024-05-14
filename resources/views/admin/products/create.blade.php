@@ -51,16 +51,6 @@
                 </span>
             @endif
 
-            <div class="mb-3">
-                <label class="form-label" for="size">Available Size (separate by commas):</label>
-                <input class="form-control" type="text" id="size" name="size">
-            </div>
-            @if ($errors->has('size[]'))
-                <span class="error">
-                    <span class="section-subtitle" style="margin-inline: 0px">{{ $errors->first('size[]') }}</span>
-                </span>
-            @endif
-
             <fieldset class="border border-black p-3 mb-3">
                 <legend>Prices</legend>
                 <div class="row">
